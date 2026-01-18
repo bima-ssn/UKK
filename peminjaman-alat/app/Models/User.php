@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +45,32 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Relationships
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class);
+    }
+
+    public function logAktivitas()
+    {
+        return $this->hasMany(LogAktivitas::class);
+    }
+
+    // Helper methods
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isPetugas()
+    {
+        return $this->role === 'petugas';
+    }
+
+    public function isPeminjam()
+    {
+        return $this->role === 'peminjam';
     }
 }

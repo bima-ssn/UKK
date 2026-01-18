@@ -1,59 +1,149 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Aplikasi Peminjaman Alat - Laravel 12
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi web untuk manajemen peminjaman alat dengan 3 role pengguna: Admin, Petugas, dan Peminjam.
 
-## About Laravel
+## 🚀 Fitur
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Admin
+- ✅ Login & Logout
+- ✅ CRUD User
+- ✅ CRUD Alat
+- ✅ CRUD Kategori Alat
+- ✅ CRUD Data Peminjaman
+- ✅ CRUD Pengembalian
+- ✅ Menyetujui/Menolak Peminjaman
+- ✅ Mencetak Laporan (PDF)
+- ✅ Log Aktivitas Sistem
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Petugas
+- ✅ Login & Logout
+- ✅ Menyetujui/Menolak Peminjaman
+- ✅ Memantau Pengembalian
+- ✅ CRUD Data Peminjaman
+- ✅ CRUD Pengembalian
+- ✅ Melihat daftar alat
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Peminjam
+- ✅ Login & Logout
+- ✅ Melihat daftar alat
+- ✅ Mengajukan Peminjaman
+- ✅ Melihat status peminjaman
+- ✅ Melihat riwayat pengembalian
 
-## Learning Laravel
+## 📋 Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- PHP >= 8.2
+- Composer
+- MySQL 5.7+
+- Node.js & npm
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🔧 Installation
 
-## Laravel Sponsors
+1. Clone repository
+```bash
+git clone <repository-url>
+cd peminjaman-alat
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Install dependencies
+```bash
+composer install
+npm install
+```
 
-### Premium Partners
+3. Setup environment
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4. Configure database in `.env`
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=peminjaman_alat
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Contributing
+5. Run migrations & seeders
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. Build assets
+```bash
+npm run build
+```
 
-## Code of Conduct
+7. Start server
+```bash
+php artisan serve
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 👤 Default Users
 
-## Security Vulnerabilities
+Setelah menjalankan seeder, Anda dapat login dengan:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Admin**: admin@example.com / password
+- **Petugas**: petugas@example.com / password
+- **Peminjam**: peminjam@example.com / password
 
-## License
+## 📁 Struktur Project
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Admin/     # Controller untuk Admin
+│   │   ├── Petugas/   # Controller untuk Petugas
+│   │   └── Peminjam/  # Controller untuk Peminjam
+│   └── Middleware/    # Middleware untuk role-based access
+├── Models/            # Eloquent Models
+└── Traits/            # LogActivity trait
+
+database/
+├── migrations/        # Database migrations
+└── seeders/          # Database seeders
+
+resources/
+└── views/
+    ├── admin/        # Views untuk Admin
+    ├── petugas/      # Views untuk Petugas
+    ├── peminjam/     # Views untuk Peminjam
+    └── layouts/      # Layout templates
+```
+
+## 🗄️ Database Schema
+
+### Tables
+- `users` - Data pengguna
+- `kategori` - Kategori alat
+- `alat` - Data alat
+- `peminjaman` - Data peminjaman
+- `detail_peminjaman` - Detail alat yang dipinjam
+- `pengembalian` - Data pengembalian
+- `log_aktivitas` - Log aktivitas sistem
+
+## 📝 Notes
+
+- Semua views menggunakan Bootstrap 5
+- PDF reports menggunakan DomPDF
+- Activity logging otomatis untuk semua aksi penting
+- Stok alat otomatis berkurang saat peminjaman disetujui
+- Stok alat otomatis bertambah saat pengembalian
+- Denda dihitung otomatis jika terlambat (Rp 10.000/hari)
+
+## 🐛 Troubleshooting
+
+Jika ada masalah:
+1. Pastikan semua dependencies terinstall
+2. Pastikan database sudah dibuat
+3. Jalankan `php artisan migrate:fresh --seed` untuk reset database
+4. Pastikan storage link sudah dibuat: `php artisan storage:link`
+
+## 📄 License
+
+MIT License
